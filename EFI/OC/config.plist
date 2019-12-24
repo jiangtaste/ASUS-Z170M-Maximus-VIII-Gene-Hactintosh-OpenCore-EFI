@@ -410,7 +410,7 @@
 			<key>Resolution</key>
 			<string></string>
 			<key>ShowPicker</key>
-			<false/>
+			<true/>
 			<key>Timeout</key>
 			<integer>5</integer>
 			<key>UsePicker</key>
