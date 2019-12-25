@@ -1,4 +1,4 @@
-# i5-6500-Maximus-viii-gene-Hactintosh
+# i5-6500-Maximus-viii-gene-Hactintosh完美黑苹果
 
 之前一直使用Clover进行引导，自认为完美程度达99%。直到近日闲暇之际了解到Opencore引导，经一番折腾，发现OpenCore虽然仍处于Beta版（0.53），其体验已经可以甩Clover一大截了。此处给Opencore项目组100个赞（👍👍👍👍👍 * 20）
 
