@@ -611,7 +611,7 @@
 			<key>PointerSupportMode</key>
 			<string>ASUS</string>
 			<key>TimerResolution</key>
-			<integer>60000</integer>
+			<integer>50000</integer>
 		</dict>
 		<key>Protocols</key>
 		<dict>

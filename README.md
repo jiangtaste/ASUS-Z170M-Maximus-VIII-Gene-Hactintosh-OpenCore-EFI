@@ -72,7 +72,7 @@ CPU | i5 6500
 
 保存并重启
 
-### 制作安装U盘及安装系统减少说明
+### 制作安装U盘及安装系统简要说明
 具体流程自行搜索，以下列出建议要点及流程
 1. 在苹果商店下载苹果官方的原版镜像，尽量不用三方懒人包；
 2. 参照网上教程将使用镜像提供的命令将镜像写入U盘中（最好是8G以上的USB3.0的U盘，安装速度会快一点）；
@@ -147,5 +147,15 @@ Kerner|Quirks|DisableIoMapper|禁用vt-d|我们在BIOS里已经禁用vt-d了，�
 Misc|Boot|HibernateMode|休眠模式相关（非睡眠）|为了兼容性好，我试试auto
 Misc|Boot|PollAppleHotKeys|是否开启一些苹果原生热键功能，包括Cmd+K;Cmd+S|我选的是yes。如果你开机发现键盘无法选择，也选NO，并且删除OC/Drivers下的UsbKbDxe.efi
 Misc|Boot|ShowPicker|是否显示OC启动项选择器|默认为True，我使用False来跳过这个界面加快启动。我提供的EFI中此项为True，方便安装系统时选择启动项，装完系统驱动调试完美后，将此项设为false来提升开机启动体验
+Misc|Debug|DisplayLevel|日志等级|默认2147483650，我选0，关闭日志
+Misc|Debug|Target|日志展示方式|默认3，我选0，不展示日志
+Misc|Security|AllowNvramReset|允许重置NVRAM|默认False，我选True。我们的主板支持原生NVRAM，开启这项方便在OC开机启动项选择列表中便捷充值NVRAM
+Misc|Security|RequireSignature|FileVault相关|默认tue，我选false。选true无法引导
+Misc|Security|RequireVault|FileVault相关|默认tue，我选false。选true无法引导
+Misc|Security|ScanPolicy|设置引导扫描的磁盘或文件类型|默认983299，我选0。扫描所有
+NVRAM|7C436110-AB2A-4BBB-A880-FE41995C9F82|boot-args|引导参数|我去掉了-v（哆嗦模式）
+PlatformInfo|Generic|SystemProductName|机型选择|我使用iMac17.1。我提供的文件未加入机型相关，你自行使用macinfo工具生成Generic下需要的所有信息
+UEFI|Drivers|--|OC需加载的驱动|我加载了我前文Driver提到的efi文件
+UEFI|Quirks|ProvideConsoleGop|开启后修复启动二阶段前一直黑屏的问题|默认false，我选true
 
-未完待续...
+注：有一些未提到的改动，无伤大雅，我自己也尚未清除打开或关闭会有什么不同的效果，就没列入上文。还请自行查阅文档深研。
