@@ -1,13 +1,51 @@
 # 华硕Maximus-VIII-Gene / M8G 黑苹果OpenCore EFI
 
-之前一直使用Clover进行引导，自认为完美程度达99%。直到近日闲暇之际了解到Opencore引导，经一番折腾，发现OpenCore虽然仍处于Beta版（0.53），其体验已经可以甩Clover一大截了。此处给Opencore项目组100个赞（👍👍👍👍👍 * 20）
+先给OpenCore项目组100个赞（👍👍👍👍👍 * 20），OpenCore的折腾体验比起Clover好太多了。
 
-此文写作时，个人认为完美度程度直达99.9%。索性做个使用OC引导的简单笔记并分享出来，方便相似配置的各位朋友参照及少走弯路。
+## 更新说明
+
+**2020.3.7**
+
+1. 更新: OpenCore至0.5.6，顺便更新了Kexts至最新版本
+2. 修复: 完成USB端口定制
+3. 修复: 苹果开机原生快捷键可以使用了
+4. 修复: 10.15.x系统下睡眠一段时间后被自动唤醒的BUG。（使用OpenCore官方提供的Kernel Patch）
+
+因OpenCore升级后config.plist文件变动较多，请勿同其他版本混用。
+
+## 概况
+
+OpenCore版本：`0.5.6`
+
+MacOS版本：`10.15.3`
+
+SM机型：`iMac17,1`
+
+完美度程度：`99.9%`
+
+
+## 能完美工作的部分
+
+1. 完美睡眠唤醒，包括手动睡眠（Apple -> 睡眠）和定时睡眠（节能设置面板）
+2. 原生电源管理，CPU完美变频，无需加载额外SSDT.aml（加载SSDT偏节能模式，CPU常在默频及以下工作，不加载则性能模式，更容易工作在默频和睿频。使用Inter Power Gadget观察，不一定严谨）
+3. AirDrop，Continuity/Handoff，AirPlay完美工作
+4. iMessage，Facetime，App Store完美工作
+5. USB 3.0 及接口充电完美工作
+6. USB 3.1，USB 3.1 Type C 及接口充电工作，但不完美
+7. 声卡完美工作，包括HDMI和DP声音输出
+8. 核显硬解及4K输出完美工作
+
+## 不（完美）工作的部分
+
+无
+
+1. ~~OpenCore提供的引导界面苹果原生快捷键。也许是我的姿势不多，OC或UsbKbDex.efi两种方式均无法稳定触发原生快捷键事件，即偶尔能工作，偶尔不能工作，我很懵。~~ 已经可以正常工作了。
+2. ~~USBPorts定制。同样也许是我的姿势不对，怎么定制都不能让USB端口在不使用补丁的情况下完美工作。索性我就使用解除USB端口限制的补丁让所有USB端口都能使用算了。~~ 已经定制好了，屏蔽了网线口那一排的两个USB3.0端口。
 
 ## 配置单
  组件 | 配置 
 ----|----
-CPU | i5 6500
+CPU | 因特尔i5 6500
 主板 | ASUS MAXIMUS VIII GENE mATX z170
 显卡1 | Inter HD 530
 显卡2 | 蓝宝石（Sapphire）超白金RX570 4GB
@@ -18,7 +56,6 @@ CPU | i5 6500
 硬盘2 | 英特尔 545S 256GB SATA接口
 机箱 | 迎光（IN WIN） 301 白色
 
-
 ## 为何选择Opencore（简称OC）
 
 在使用OC之前，网上对OC主要有2大阵营：1、已经尝鲜的朋友吹爆OC；2、稳定使用Clover的观望OC。而我则完全出于好奇尝试OC提供的接近原生引导的体验。经测试使用后，觉得OC已经具备了稳定使用的条件了，以下是我选择OC的原因：
@@ -26,23 +63,7 @@ CPU | i5 6500
 2. 性能。不得不说OC引导的开关机速度相比clover那是快了一大截呀。用OC引导开机时，我尝尝怀疑我的电脑配置是不是太老旧了。
 3. 便捷性。使用Clover，升级OS时，可能需要升级clover才能继续使用。如果clover开启了快速引导（跳过倒计时），更新OS时可能遇到启动项未自动切换到安装更新的分区上而无法正确安装更新。这些问题OC很好的解决了，你甚至可以在系统偏好甚至中的启动磁盘里选择你想要的系统进行启动。是的，OC支持Boot Camp安装window。你可以在这里直选bootcamp windows启动，就像白果那样。（注：只是从windows不能便捷的切换到macOS，你需手动切换启动macOS，当然你可以像白果那样启动时按住option/esc进入启动项选择菜单，可惜我贴出的EFI配置中这项功能尚无法正常工作，所以我只能使用主板的F8选择硬盘来切换双系统）
 
-## What Works
-
-1. 完美睡眠唤醒，包括手动睡眠（Applce -> 睡眠）和定时睡眠（节能设置面板）
-2. 原生电源管理，CPU完美变频，无需加载SSDT.aml（加载SSDT亦能变频但偏节能模式，CPU常在默频及以下工作，而不加载时偏性能模式，更容易工作在默频和睿频。使用Inter Power Gadget观察，不一定严谨）
-3. AirDrop，Continuity/Handoff，AirPlay完美工作
-4. iMessage，Facetime，App Store完美工作
-5. USB 3.0 及接口充电完美工作
-6. USB 3.1，USB 3.1 Type C 及接口充电工作，但不完美
-7. 声卡完美工作，包括HDMI和DP声音输出
-8. 核显硬解及4K输出完美工作
-
-## What Doesn't work
-
-1. OpenCore提供的引导界面苹果原生快捷键。也许是我的姿势不多，OC或UsbKbDex.efi两种方式均无法稳定触发原生快捷键事件，即偶尔能工作，偶尔不能工作，我很懵。
-2. USBPorts定制。同样也许是我的姿势不对，怎么定制都不能让USB端口在不使用补丁的情况下完美工作。索性我就使用解除USB端口限制的补丁让所有USB端口都能使用算了。
-
-## 使用
+## OpenCore 配置说明
 
 我的配置中对ACPI的部分定制的稍多，其他地方基本未做特别的修改。如果你是ASUS MAXIMUS VIII GENE mATX z170这块主板，显卡属于免驱的。无论其他配件如何，应该能直接使用的。
 
@@ -59,7 +80,6 @@ CPU | i5 6500
 - USB Configuration > Keyboard and Mouse Simulation > Disabled
 - APM Configuration > Power on by PCI - E/PCI > Disabled​
 - Execute Disable Bit > Enable
-- VT-d > Disabled
 - CFG Lock > Disabled
 
 **Boot Menu​**
@@ -68,7 +88,6 @@ CPU | i5 6500
 - Secure Boot > OS Type > Other OS​
 - Above 4G decoding > Enable
 - CSM > Disabled
-- Boot Option 1 > USB OC启动/安装盘 (选择UEFI那个)​
 
 保存并重启
 
