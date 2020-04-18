@@ -64,9 +64,9 @@ SM机型：`iMac19,2`
 ## 配置单
  组件 | 配置 
 ----|----
-CPU | 英特尔i5 6500
+CPU | 英特尔i5 8600K
 主板 | ASUS MAXIMUS VIII GENE mATX z170
-显卡1 | Inter HD 530
+显卡1 | Inter UHD 630
 显卡2 | 蓝宝石（Sapphire）超白金RX570 4GB
 内存 | 芝奇幻光戟 2 * 16 GB DDR4 3000
 无线 | 博通Broadcom 4331CD 802.11AC PCI-E接口
