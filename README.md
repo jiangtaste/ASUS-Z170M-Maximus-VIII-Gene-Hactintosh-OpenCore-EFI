@@ -4,6 +4,17 @@
 
 ## 更新说明
 
+**2020.4.18**
+
+1. 修改：将i5 6500对应的EFI更名位EFI-iMac17,1；
+2. 新增：添加i5 8600K 核显版本，对应目录EFI-Macmini8,1；
+3. 新增：添加i5 8600K + RX570版本，对应目录位EFI-iMac19,2。
+
+使用：下载后，拷贝自己配置对应的EFI-XXX目录，更名为EFI放入你的启动分区根目录即可。如果作为稳定使用，请自行修改Config.plist中PlatformInfo -> Generic 下MLB，SystemSerialNumber, SystemUUID三项（可使用Hackintool生成），参照“修改PlatformInfo说明.png"
+
+说明1：八九代的CPU都可使用的，有独显用iMac，无独显用Macmin。
+说明2: iMac机型我使用了iMac19,2机型，对应21.5寸4K屏幕的白果。使用iMac19,1对应的27寸5K屏幕也是完全OK的，这个看自己喜好。ß
+
 **2020.3.7**
 
 1. 更新: OpenCore至0.5.6，顺便更新了Kexts至最新版本
@@ -25,9 +36,9 @@
 
 OpenCore版本：`0.5.6`
 
-MacOS版本：`10.15.3`
-
-SM机型：`iMac17,1`
+MacOS版本：`10.15.4`
+ß
+SM机型：`iMac19,2`
 
 完美度程度：`99.9%`
 
